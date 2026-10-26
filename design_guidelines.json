@@ -1,0 +1,207 @@
+{
+  "project_name": "RutinaAI - Smart Habit & Calendar Scheduler",
+  "app_type": "mobile_web_app",
+  "language": "es",
+  "theme": "dark_tinted_emerald",
+  "archetype": "Organic & Tactical Precision (Archetype 1 + Archetype 2)",
+  "instructions_to_main_agent": [
+    "Build a high-performance Spanish Mobile Web App (PWA) with React, Tailwind CSS, Lucide Icons, Framer Motion, and Sonner toasts.",
+    "Implement full mobile-first app layout with top header status, glassmorphic floating bottom navigation bar, and tab screens.",
+    "Ensure all interactive elements have explicit data-testid attributes in kebab-case (e.g. data-testid='plan-with-ai-btn').",
+    "DO NOT use raw transparent backgrounds on sticky elements. Use backdrop-blur-md bg-slate-900/90 or solid cards with 1px border border-slate-800.",
+    "Support full Spanish UI copy throughout all screens and dialogs.",
+    "Implement real client-side state with localStorage persistence or React Query/Context for habits, routines, calendar feeds, scheduled slots, completed habits, and streaks.",
+    "Include a prominent 'Planificar con IA' trigger button with animated AI scheduling solver, conflict breakdown, and travel buffer calculation (e.g. 15 min ida + 15 min vuelta)."
+  ],
+  "typography": {
+    "heading_font": "Outfit, sans-serif",
+    "body_font": "Inter, system-ui, sans-serif",
+    "mono_font": "JetBrains Mono, monospace",
+    "hierarchy": {
+      "h1": "text-3xl font-bold tracking-tight text-white sm:text-4xl",
+      "h2": "text-xl font-semibold tracking-tight text-slate-100 sm:text-2xl",
+      "h3": "text-lg font-medium text-slate-200",
+      "body": "text-sm text-slate-300 leading-relaxed",
+      "caption": "text-xs font-mono uppercase tracking-widest text-emerald-400"
+    }
+  },
+  "colors": {
+    "background": "#0D1117",
+    "surface": "#161B22",
+    "surface_card": "#21262D",
+    "surface_border": "#30363D",
+    "primary": "#10B981",
+    "primary_hover": "#059669",
+    "primary_glow": "rgba(16, 185, 129, 0.25)",
+    "ai_purple": "#8B5CF6",
+    "ai_purple_hover": "#7C3AED",
+    "accent_amber": "#F59E0B",
+    "accent_rose": "#F43F5E",
+    "text_main": "#F0F6FC",
+    "text_muted": "#8B949E",
+    "text_subtle": "#6E7681",
+    "routine_block_bg": "rgba(59, 130, 246, 0.15)",
+    "routine_block_border": "#3B82F6",
+    "habit_block_bg": "rgba(16, 185, 129, 0.15)",
+    "habit_block_border": "#10B981",
+    "travel_block_bg": "rgba(245, 158, 11, 0.15)",
+    "travel_block_border": "#F59E0B"
+  },
+  "layout_and_navigation": {
+    "device_frame": "Mobile viewport container optimized for PWA with max-w-md mx-auto min-h-screen border-x border-slate-800 shadow-2xl bg-[#0D1117] relative flex flex-col pb-24",
+    "top_header": "Sticky top-0 z-40 bg-[#0D1117]/90 backdrop-blur-md border-b border-[#30363D] px-4 py-3 flex items-center justify-between",
+    "bottom_tab_bar": "Fixed bottom-0 left-0 right-0 z-50 max-w-md mx-auto bg-[#161B22]/95 backdrop-blur-xl border-t border-[#30363D] px-3 py-2 flex justify-around items-center text-xs font-medium",
+    "tabs": [
+      {
+        "id": "hoy",
+        "label": "Hoy",
+        "icon": "CalendarCheck",
+        "data_testid": "nav-tab-hoy"
+      },
+      {
+        "id": "calendario",
+        "label": "Agenda",
+        "icon": "CalendarDays",
+        "data_testid": "nav-tab-calendario"
+      },
+      {
+        "id": "habitos",
+        "label": "Hábitos",
+        "icon": "Target",
+        "data_testid": "nav-tab-habitos"
+      },
+      {
+        "id": "progreso",
+        "label": "Progreso",
+        "icon": "TrendingUp",
+        "data_testid": "nav-tab-progreso"
+      },
+      {
+        "id": "ajustes",
+        "label": "Ajustes",
+        "icon": "Settings",
+        "data_testid": "nav-tab-ajustes"
+      }
+    ]
+  },
+  "key_screens": {
+    "hoy_view": {
+      "title": "Agenda de Hoy",
+      "features": [
+        "Header showing current date in Spanish, streak indicator chip, and quick 'Planificar con IA' hero button.",
+        "Timeline list of today's items: Fixed Routines (Trabajo, Clases) + AI Scheduled Habit Sessions + Travel Time padding slots.",
+        "Each habit card features: priority badge, duration, travel time tag (e.g. '+15m ida/vuelta'), time window, and quick action buttons: 'Completada' (Done) & 'Posponer' (Postpone & Replan with AI).",
+        "AI Replan Drawer/Modal when postponing: shows updated optimal slot calculation."
+      ]
+    },
+    "calendario_view": {
+      "title": "Vista Semanal & iCal",
+      "features": [
+        "Interactive day/week schedule grid showing hour blocks (07:00 to 23:00).",
+        "Color coding: Blue for Fixed Routines / iCal imports, Emerald green for AI-scheduled habit sessions, Orange for Travel time buffers.",
+        "Toggle view between Day Timeline and Week Grid.",
+        "Imported iCal status banner showing connected calendar (e.g. Google Calendar / iCal Feed sync active)."
+      ]
+    },
+    "habitos_view": {
+      "title": "Gestión de Hábitos y Rutinas",
+      "features": [
+        "Prioritized list of habits with drag/drop or priority rank controls (Alta, Media, Baja).",
+        "Comprehensive Create/Edit Habit Modal with advanced fields:",
+        "  - Nombre de la tarea/hábito (e.g. Ir al Gimnasio, Estudiar Inglés, Leer)",
+        "  - Frecuencia semanal (e.g. 3 días por semana)",
+        "  - Duración por sesión (e.g. 90 minutos)",
+        "  - Tiempo de desplazamiento ida y vuelta (e.g. 15 min ida / 15 min vuelta)",
+        "  - Restricciones horarias prohibidas (e.g. No de 16:30 a 19:30)",
+        "  - Días prohibidos (e.g. Sin fines de semana)",
+        "  - Horarios preferidos (e.g. Mañanas / Tardes / Noches)",
+        "  - Prioridad (1 a 5)",
+        "Section for Rutinas Fijas Inamovibles (Trabajo, Universidad, Clases de Alemán) with manual block creator."
+      ]
+    },
+    "ai_planner_modal": {
+      "title": "Asistente AI de Planificación (Planificar con IA)",
+      "features": [
+        "Triggers algorithmic auto-scheduling that searches free gaps in user's calendar.",
+        "Animates AI optimization steps: 'Analizando rutinas fijas...', 'Calculando desplazamientos...', 'Evitando franjas saturadas...', 'Optimizando energía y descanso...'.",
+        "Displays AI rationale cards explaining WHY a slot was chosen (e.g. 'Gym programado el Martes a las 08:00 porque de 16:30 a 19:30 indicaste mucha afluencia').",
+        "One-click 'Confirmar y Aplicar al Calendario' button."
+      ]
+    },
+    "progreso_view": {
+      "title": "Progreso, Rachas y Logros",
+      "features": [
+        "Weekly habit completion percentage radial chart / progress bar.",
+        "Streak metrics per habit (e.g. 'Gimnasio: 🔥 4 semanas consecutivas').",
+        "Logros desbloqueados (Badges for overcoming procrastination, e.g. 'Vencedor del Aplazamiento', 'Semana Redonda').",
+        "History log of postponed vs completed habits."
+      ]
+    },
+    "ajustes_view": {
+      "title": "Integración y Ajustes",
+      "features": [
+        "Calendar iCal / Webcal Integration:",
+        "  - Field to paste external iCal URL (Google Calendar / Outlook / iCal)",
+        "  - WebCal export URL feed generator link to subscribe from iPhone Calendar / Google Calendar app",
+        "User schedule parameters: Horario de Despertar (e.g. 07:00), Horario de Sueño (e.g. 23:00), Buffer de descanso entre tareas (e.g. 15 min)."
+      ]
+    }
+  },
+  "micro_interactions": {
+    "hover_states": "All buttons scale 1.02x with shadow glow and border brightness shift.",
+    "button_active": "Scale 0.97x on active tap with haptic tactile response feel.",
+    "toast_notifications": "Sonner toasts in Spanish for 'Hábito completado', 'Replanificado con éxito', 'Calendario iCal sincronizado'.",
+    "streak_animation": "Animated flame badge with pulse glow on completion."
+  },
+  "accessibility_and_testids": {
+    "contrast": "APCA high contrast dark mode text (#F0F6FC on #161B22), minimum 4.5:1 ratio.",
+    "data_testids_required": [
+      "app-header",
+      "plan-with-ai-btn",
+      "hoy-tab-content",
+      "calendario-tab-content",
+      "habitos-tab-content",
+      "progreso-tab-content",
+      "ajustes-tab-content",
+      "add-habit-btn",
+      "habit-form-submit",
+      "habit-name-input",
+      "habit-duration-input",
+      "habit-travel-input",
+      "habit-forbidden-time-input",
+      "habit-forbidden-days-input",
+      "mark-done-btn",
+      "mark-postpone-btn",
+      "ical-url-input",
+      "webcal-export-btn",
+      "ai-planning-modal",
+      "confirm-ai-schedule-btn"
+    ]
+  },
+  "image_urls": {
+    "avatars": [
+      {
+        "url": "https://images.unsplash.com/photo-1549476464-37392f717541?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA2MTJ8MHwxfHNlYXJjaHw0fHxwZXJzb24lMjBneW0lMjBmaXRuZXNzJTIwaGFiaXQlMjBhdmF0YXJ8ZW58MHx8fHwxNzkzMDAxNTk1fDA&ixlib=rb-4.1.0&q=85",
+        "category": "gym_habit_avatar",
+        "description": "Athlete workout illustration"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1675627895634-fd5150ffd62e?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NzB8MHwxfHNlYXJjaHw0fHxtZWRpdGF0aW9uJTIwcnVubmVyJTIwcmVhZGluZyUyMGhhYml0JTIwcG9ydHJhaXR8ZW58MHx8fHwxNzkzMDAxNjAxfDA&ixlib=rb-4.1.0&q=85",
+        "category": "reading_habit_avatar",
+        "description": "Person reading book"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1635617240041-c95219c05542?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NzB8MHwxfHNlYXJjaHwzfHxtZWRpdGF0aW9uJTIwcnVubmVyJTIwcmVhZGluZyUyMGhhYml0JTIwcG9ydHJhaXR8ZW58MHx8fHwxNzkzMDAxNjAxfDA&ixlib=rb-4.1.0&q=85",
+        "category": "meditation_habit_avatar",
+        "description": "Person doing yoga meditation"
+      }
+    ],
+    "calendar_hero": [
+      {
+        "url": "https://images.unsplash.com/photo-1601342630314-8427c38bf5e6?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1MTN8MHwxfHNlYXJjaHwxfHxjYWxlbmRhciUyMG1vYmlsZSUyMGhhYml0JTIwcHJvZHVjdGl2aXR5JTIwc2NoZWR1bGV8ZW58MHx8fHwxNzkzMDAxNTk1fDA&ixlib=rb-4.1.0&q=85",
+        "category": "calendar_productivity",
+        "description": "Digital calendar tablet planning session"
+      }
+    ]
+  }
+}
